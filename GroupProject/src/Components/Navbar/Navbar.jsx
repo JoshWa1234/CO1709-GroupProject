@@ -6,7 +6,9 @@ function Navbar() {
         <>
             <div className={styles['nav-container']}>
                 <div className={styles['nav-container-left']}>
-                    <NavbarItem message={'Test-left'}></NavbarItem>
+                    <div className={styles['nav-item-container']}>
+                        <NavbarItem message={'Test-left'}></NavbarItem>
+                    </div>
                 </div>
                 <div className={styles['nav-container-right']}>
                     <div className={styles['nav-item-container']}>
