@@ -14,7 +14,7 @@ function Navbar() {
                     </div>
 
                     <div className={styles['nav-item-container']}>
-                        <NavbarItem message={'Darcy'}></NavbarItem>
+                        <NavbarItem message={'Test Button'}></NavbarItem>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-.nav-container{
+.footer-container{
     background-color: #8181fa;
     width: 100%;
     height: 10vh;
@@ -8,17 +8,18 @@
     align-items: center;
     justify-content: space-between;
 }
-.nav-container-left{
+
+.footer-container-left{
     display: flex;
     padding: 20px;
     float: left;
 }
-.nav-container-right{
+.footer-container-right{
     display: flex;
     padding: 20px;
     float: right;
 }
 
-.nav-item-container{
+.footer-item-container{
     padding: 30px;
 }

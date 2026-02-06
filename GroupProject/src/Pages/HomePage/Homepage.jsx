@@ -5,7 +5,9 @@ function HomePage() {
     return (
         <>
             <div className={styles['banner']}>
-                <img src={WorkPlaceWellbeing} alt="Wellbeing" />
+                <div>
+                    <img src={WorkPlaceWellbeing} alt="Wellbeing" />
+                </div>
             </div>
         </>
     )
