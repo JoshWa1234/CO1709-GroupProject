@@ -13,7 +13,7 @@ function Navbar() {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
             <div className={`${styles['nav-container']} ${Responsive ? styles['responsive'] : ''}`}>
-                <div className={styles['nav-item-container']}>
+                <div className={`${styles['nav-item-container']} ${!Responsive ? styles['icon'] : ''}`}>
                     <div className={styles['icon']}>
                         <a onClick={changeResponsive}>
                             <i className={'fa fa-bars'}></i>
