@@ -22,3 +22,49 @@
 .nav-item-container{
     padding: 30px;
 }
+.responsive {}
+.icon {
+    display: none;
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+    .nav-container-left .nav-item-container:not(.icon) {display: none;}
+    .nav-container-right .nav-item-container {display:none;}
+}
+
+
+@media screen and (max-width: 600px) {
+    /* Show the hamburger icon */
+    .icon {
+        display: block;
+        cursor: pointer;
+    }
+
+    /* Make nav-container responsive */
+    .nav-container.responsive {
+        height: auto; /* adjust height automatically */
+        flex-direction: column; /* stack items vertically */
+        align-items: flex-start; /* align items to left */
+    }
+    .nav-item-container{
+        padding: 20px;
+    }
+
+        /* Stack left and right containers */
+    .nav-container-right,
+    .nav-container-left{
+        display: flex;
+        flex-direction: column; /* stack items inside */
+        width: 100%; /* full width */
+        padding: 0;
+    }
+
+    /* Hide all left items except first one? */
+    .nav-container.responsive .nav-container-left .nav-item-container:not(:first-child) {
+        display: block; /* now they’re visible in stack */
+    }
+
+}

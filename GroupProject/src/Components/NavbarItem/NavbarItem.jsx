@@ -3,7 +3,11 @@ function NavbarItem(navBarItemProps) {
     return (
         <>
             <div>
-                <a> {navBarItemProps.message}</a>
+                <a href={navBarItemProps.href}
+                   onClick={navBarItemProps.onClick}
+                >
+                    {navBarItemProps.message}
+                </a>
             </div>
         </>
     )
