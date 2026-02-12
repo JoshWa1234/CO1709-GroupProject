@@ -63,7 +63,7 @@
     }
 
     /* Hide all left items except first one? */
-    .nav-container.responsive .nav-container-left .nav-item-container:not(:first-child) {
+    .nav-container.responsive .nav-container-left .nav-item-container {
         display: block; /* now they’re visible in stack */
     }
 
