@@ -1,4 +1,3 @@
-import styles from './Homepage.module.css'
 import WorkPlaceWellbeing from '../../assets/images/WorkPlaceWellbeing.jpg';
 import mobileWorkPlaceWellbeing from '../../assets/images/mobileWorkPlaceWellbeing.jpg';
 import SlideShow from "../../Components/ImageSlideShow/ImageSlideShow.jsx";
