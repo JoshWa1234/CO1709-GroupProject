@@ -1,0 +1,11 @@
+input:focus{
+    border: none;
+}
+.InputBox-Standard:focus{
+    border: #8181fa 5px solid;
+}
+.error-text {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
