@@ -1,7 +1,7 @@
 import WorkPlaceWellbeing from '../../assets/images/WorkPlaceWellbeing.jpg';
 import mobileWorkPlaceWellbeing from '../../assets/images/mobileWorkPlaceWellbeing.jpg';
-import SlideShow from "../../Components/ImageSlideShow/ImageSlideShow.jsx";
-import ImageComponent from "../../Components/Image/ImageComponent.jsx";
+import SlideShow from "../../ui Components/ImageSlideShow/ImageSlideShow.jsx";
+import ImageComponent from "../../ui Components/Image/ImageComponent.jsx";
 import { useEffect } from 'react';
 
 function SlideShowCreation(){
