@@ -33,7 +33,6 @@ export default function SlideShow ({imageList}) {
         );
     }
     function nextSlide() {
-        console.log('currentSlide =', slide)
         if (slide === imageListLength -1 ) {
             setSlide(0)
         }
