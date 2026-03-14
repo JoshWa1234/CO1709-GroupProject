@@ -5,12 +5,6 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
-const highlightTypes = {
-    error: 'highlight-error',
-    success: 'highlight-success',
-    warning: 'highlight-warning',
-    none: 'highlight-none'
-}
 const validationTypes = ['email', 'password','none'];
 
 //https://mui.com/material-ui/react-tooltip/
@@ -26,9 +20,8 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     },
 }));
 
-
-export default function InputBox({type,placeholder,tag,errorMsg ,validation}){
-    const [inputValue,setInputValue] = useState('')
+     // controlled change handler from parent
+export default function InputBox({type,placeholder,tag,errorMsg,validation,value,onChange}){
     // set to true on initially so error is not aggressive
     const [validInput,setValidInput] = useState(true)
     const [errorMsgState,setErrorMsg] = useState(errorMsg || '')
@@ -37,39 +30,39 @@ export default function InputBox({type,placeholder,tag,errorMsg ,validation}){
         throw new Error("Please enter a valid validation type for the InputBox component");
     }
 
-    function validate(value = inputValue) {
+    function validate(val = value ) {
         let overwriteErrorMsg = !errorMsg;
         let inputValid = true;
 
         switch (validation) {
             case "email":
                 if (overwriteErrorMsg) setErrorMsg("Please enter a valid email address");
-                inputValid = emailValidation(value);
+                inputValid = emailValidation(val);
                 break;
 
             case "password":
                 if (overwriteErrorMsg) setErrorMsg("Please enter a valid password");
-                inputValid = passwordValidation(value);
+                inputValid = passwordValidation(val);
                 break;
         }
         setValidInput(inputValid);
     }
 
-    function letterChange(value) {
-        setInputValue(value);
+    // Report changes to parent and validate
+    const handleChange = (val) => {
+        onChange(val);
+        if (!validInput) validate(val);
+    };
 
-        if (!validInput) {
-            validate(value);
-        }
-    }
+
     const inputElement = (
         <input
             type={type}
             placeholder={placeholder}
             id={tag}
             className={!validInput ? styles["InputBox-Error"] : styles["InputBox-Standard"]}
-            value={inputValue}
-            onChange={(e) => letterChange(e.target.value)}
+            value={value}
+            onChange={(e) => handleChange(e.target.value)}
             onBlur={() => validate()}
         />
     );
