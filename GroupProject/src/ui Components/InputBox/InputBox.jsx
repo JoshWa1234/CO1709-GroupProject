@@ -1,6 +1,9 @@
-import {useState} from "react";
+import {useState,Fragment} from "react";
 import styles from './InputBox.module.css'
-import {emailValidation} from "@/utils/validation.utils.js";
+import {emailValidation,passwordValidation} from "@/utils/validation.utils.js";
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 
 const highlightTypes = {
     error: 'highlight-error',
@@ -9,85 +12,104 @@ const highlightTypes = {
     none: 'highlight-none'
 }
 const validationTypes = ['email', 'password','none'];
+
+//https://mui.com/material-ui/react-tooltip/
+const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} placement="right-start" />
+))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+        backgroundColor: '#f5f5f9',
+        color: 'rgba(0, 0, 0, 0.87)',
+        maxWidth: 220,
+        fontSize: theme.typography.pxToRem(12),
+        border: '1px solid #dadde9',
+    },
+}));
+
+
 export default function InputBox({type,placeholder,tag,errorMsg ,validation}){
-    const [highlightState,setHighlightState] = useState(highlightTypes.none)
     const [inputValue,setInputValue] = useState('')
     // set to true on initially so error is not aggressive
     const [validInput,setValidInput] = useState(true)
     const [errorMsgState,setErrorMsg] = useState(errorMsg || '')
+
     if (!validationTypes.includes(validation)) {
-        throw new Error('Please enter a valid validation type for the InputBox component')
+        throw new Error("Please enter a valid validation type for the InputBox component");
     }
-    function validate(){
-        let overWriteErrorMsg = errorMsg === null || errorMsg === '' || errorMsg === undefined
-        switch (validation){
-            case 'email':
 
-                if (overWriteErrorMsg){
-                    setErrorMsg('Please enter a valid email address')
-                }
-                let valid = emailValidation(inputValue);
+    function validate(value = inputValue) {
+        let overwriteErrorMsg = !errorMsg;
+        let inputValid = true;
 
-                setValidInput(valid)
-                setHighlightState(valid ? highlightTypes.success : highlightTypes.error);
+        switch (validation) {
+            case "email":
+                if (overwriteErrorMsg) setErrorMsg("Please enter a valid email address");
+                inputValid = emailValidation(value);
                 break;
-            default:
-                setValidInput(true)
+
+            case "password":
+                if (overwriteErrorMsg) setErrorMsg("Please enter a valid password");
+                inputValid = passwordValidation(value);
+                break;
         }
-    }
-    function changeState(state){
-        setHighlightState(state);
-        highlight()
+        setValidInput(inputValid);
     }
 
-    function setSuccess(){
-        changeState(highlightTypes.success)
-    }
+    function letterChange(value) {
+        setInputValue(value);
 
-    function highlight(){
-        let inputBox = document.getElementById(tag)
-        if(inputBox){
-            inputBox.classList.add(styles[highlightState])
+        if (!validInput) {
+            validate(value);
         }
     }
-    function letterChange(value){
-        setInputValue(value)
-        if(!validInput){
-            validate()
-        }
-    }
-    function inputBox(){
-        // Validate error on blur so user only sees error when clicking off or tabbing out
+    const inputElement = (
+        <input
+            type={type}
+            placeholder={placeholder}
+            id={tag}
+            className={!validInput ? styles["InputBox-Error"] : styles["InputBox-Standard"]}
+            value={inputValue}
+            onChange={(e) => letterChange(e.target.value)}
+            onBlur={() => validate()}
+        />
+    );
+
+    const inputWithError = (
+        <>
+            {inputElement}
+            {!validInput && (
+                <div>
+                    <span className={styles["error-text"]}>{errorMsgState}</span>
+                </div>
+            )}
+        </>
+    );
+
+    if (type === "password") {
         return (
-            <div>
-                <input type={type}
-                       placeholder={placeholder}
-                       id={tag}
-                       className={styles['InputBox-Error']}
-                       value={inputValue}
-                       onChange={(e) => letterChange(e.target.value)}
-                       onBlur={() => validate()}
-                />
-
-            </div>
-        )
-    }
-    function inputErrorCheck(){
-        let val = inputBox();
-        if (!validInput){
-            val = (
-                <>
+            <HtmlTooltip
+                title={
+                    <Fragment>
+                        <Typography color="inherit">Password Requirements</Typography>
+                        <ul>
+                            <li>At Least 1 Uppercase Character</li>
+                            <li>At least 6 Lowercase Character</li>
+                            <li>At least 1 Special Character</li>
+                            <li>At least 1 Numeric Character</li>
+                            <li>Max Length 32 Characters</li>
+                        </ul>
+                    </Fragment>
+                }
+            >
+                {inputElement}
+                {!validInput && (
                     <div>
-                        { inputBox() }
-                        <div>
-                            <span >Error: { errorMsgState }</span>
-                        </div>
+                        <span className={styles["error-text"]}>{errorMsgState}</span>
                     </div>
-                </>
-            )
-        }
-
-        return val;
+                )}
+            </HtmlTooltip>
+        );
     }
-    return inputErrorCheck()
+
+    return <div>{inputWithError}</div>;
 }
