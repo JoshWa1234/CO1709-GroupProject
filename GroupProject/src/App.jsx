@@ -3,6 +3,7 @@ import Navbar from './ui Components/Navbar/Navbar.jsx';
 import Footer from './ui Components/Footer/Footer.jsx';
 import HomePage from './Pages/HomePage/Homepage.jsx';
 import LoginPage from './Pages/Login/Loginpage.jsx';
+import Leaderboard from './Pages/Leaderboard/Leaderboard.jsx';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/leaderboard" element={<Leaderboard />} />
                 </Routes>
             </main>
             <Footer />
