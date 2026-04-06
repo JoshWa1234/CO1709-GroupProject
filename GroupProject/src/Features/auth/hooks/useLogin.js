@@ -1,33 +1,36 @@
-import {useState} from "react";
-import {loginUserIn} from '@/api/auth.api'
-import {createCookie} from "react-router-dom";
+import { useState } from "react";
 
-export default function useLogin(){
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+export default function useLoginForm() {
+    const [email,setEmail]=useState('');
+    const [password,setPassword]=useState('');
+    const [loading,setLoading]=useState(false);
+    const [error,setError]=useState('');
 
-    const loginUser = async (email,password) => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            const data = await loginUserIn(email, password);
-
-            // store auth tokenauth
-            createCookie("tokenAuth", token);
-
-            // redirect after login
-            navigate("/");
-        } catch (err) {
-            setError(err.response?.data?.message || "Login failed");
-        } finally {
+    async function handleSubmit(e) {
+        e.preventDefault();
+        // fake API call here
+        try{
+            setLoading(true);
+            await new Promise(resolve => setTimeout(resolve, 1000))
+                setError("Invalid credentials"); // always fails for now
+        }
+        catch (err){
+            setError(err);
+        }
+        finally {
             setLoading(false);
         }
+
+
     }
 
     return {
-        loginUser,
+        email,
+        setEmail,
+        password,
+        setPassword,
         loading,
-        error
-};
-};
+        error,
+        handleSubmit
+    }
+}

@@ -4,6 +4,7 @@ import {emailValidation,passwordValidation} from "@/utils/validation.utils.js";
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import ErrorMessage from "@/ui Components/ErrorMessage/ErrorMessage.jsx";
 
 const validationTypes = ['email', 'password','none'];
 
@@ -21,7 +22,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
      // controlled change handler from parent
-export default function InputBox({type,placeholder,tag,errorMsg,validation,value,onChange}){
+export default function InputBox({type,placeholder,tag,errorMsg,validation,value,onChange,label}){
     // set to true on initially so error is not aggressive
     const [validInput,setValidInput] = useState(true)
     const [errorMsgState,setErrorMsg] = useState(errorMsg || '')
@@ -64,17 +65,26 @@ export default function InputBox({type,placeholder,tag,errorMsg,validation,value
             value={value}
             onChange={(e) => handleChange(e.target.value)}
             onBlur={() => validate()}
+
         />
     );
 
     const inputWithError = (
         <>
-            {inputElement}
-            {!validInput && (
+            <div className={styles["input-container"]}>
                 <div>
-                    <span className={styles["error-text"]}>{errorMsgState}</span>
+                    <label htmlFor={tag}>{label}</label>
                 </div>
+                <div>
+                    {inputElement}
+                </div>
+            </div>
+            <div>
+
+            {!validInput && (
+                <ErrorMessage message={errorMsgState} />
             )}
+            </div>
         </>
     );
 
@@ -94,15 +104,23 @@ export default function InputBox({type,placeholder,tag,errorMsg,validation,value
                     </Fragment>
                 }
             >
-                {inputElement}
-                {!validInput && (
-                    <div>
-                        <span className={styles["error-text"]}>{errorMsgState}</span>
-                    </div>
-                )}
+            <div className={styles["input-container"]}>
+                <div>
+                    <label htmlFor={tag}>{label}</label>
+                </div>
+                <div>
+                    {inputElement}
+                </div>
+            </div>
+                <div>
+
+                    {!validInput && (
+                        <ErrorMessage message={errorMsgState} />
+                    )}
+                </div>
             </HtmlTooltip>
         );
     }
 
-    return <div>{inputWithError}</div>;
+    return inputWithError;
 }
