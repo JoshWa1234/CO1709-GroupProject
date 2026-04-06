@@ -26,7 +26,7 @@ function Navbar() {
                         <NavbarItem path={"/login"} message={'Login'}></NavbarItem>
                     </div>
                     <div className={styles['nav-item-container']}>
-                        <NavbarItem message={'Test-left'}></NavbarItem>
+                        <NavbarItem path={"/leaderboard"} message={'Leaderboard'}></NavbarItem>
                     </div>
                     <div className={styles['nav-item-container']}>
                         <NavbarItem message={'Test-left'}></NavbarItem>
