@@ -7,7 +7,8 @@ import ErrorMessage from "@/ui Components/ErrorMessage/ErrorMessage.jsx";
 
 export default function LoginForm(){
 
-    const { email, setEmail, password, setPassword, loading, error, handleSubmit } = useLoginForm();
+    const { email, setEmail, password, setPassword, loading, error, user,handleSubmit } = useLoginForm();
+    console.log(user);
     return(
         <div className={styles["login-form"]}>
             <div className={styles["header"]}>
@@ -17,7 +18,7 @@ export default function LoginForm(){
 
             </div>
                 <InputBox
-                    tag={'EmailInput'}  
+                    tag={'EmailInput'}
                     type={'email'}
                     label={'Email:'}
                     placeholder={'john.doe@gmail.com'}

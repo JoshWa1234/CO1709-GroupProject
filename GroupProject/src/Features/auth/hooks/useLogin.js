@@ -1,16 +1,18 @@
 import { useState } from "react";
+import {loginUser, signUpUser} from "@/api/auth.api.js";
 
 export default function useLoginForm() {
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [loading,setLoading]=useState(false);
     const [error,setError]=useState('');
+    const [user, setUser] = useState(null);
 
     async function handleSubmit(e) {
         console.log('handle submit hit');
         e.preventDefault();
 
-        // fake API call here
+
         try{
             setLoading(true);
             await new Promise(resolve => setTimeout(resolve, 1000))
@@ -24,6 +26,23 @@ export default function useLoginForm() {
         }
 
 
+        setError('');
+        setLoading(true);
+
+        try {
+            const data = await loginUser(email, password);
+            console.log('from use Login',data);
+            setUser(data.user);
+            if (data.errorMessage) {
+                setError(data.errorMessage);
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+
+
     }
 
     return {
@@ -33,6 +52,7 @@ export default function useLoginForm() {
         setPassword,
         loading,
         error,
+        user,
         handleSubmit
     }
 }
