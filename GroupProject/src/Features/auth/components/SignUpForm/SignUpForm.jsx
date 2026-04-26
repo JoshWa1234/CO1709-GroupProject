@@ -1,13 +1,21 @@
-import {useState} from "react";
+
 import InputBox from "@/ui Components/InputBox/InputBox.jsx";
-import styles from "./LoginForm.module.css";
+import styles from "./SignUpForm.module.css";
 import globalStyles from "@/styles/global.module.css"
-import useLoginForm from "@/Features/auth/hooks/useLogin.js";
 import ErrorMessage from "@/ui Components/ErrorMessage/ErrorMessage.jsx";
+import useSignUp from "@/Features/auth/hooks/useSignUp.js";
 
-export default function LoginForm(){
+export default function SignUpForm(){
 
-    const { email, setEmail, password, setPassword, loading, error, handleSubmit } = useLoginForm();
+    const { email,
+            setEmail,
+            password,
+            setPassword,
+            loading,
+            error,
+            confirmPassword,
+            setConfirmPassword,
+            handleSubmit } = useSignUp();
     return(
         <div className={styles["login-form"]}>
             <div className={styles["header"]}>
@@ -34,17 +42,26 @@ export default function LoginForm(){
                     value={password}
                     onChange={setPassword}
                 ></InputBox>
-                <span>
+            <span style={{'marginBottom': '10px'}} >
                     <a >
                          Forgotten Password?
                     </a>
                 </span>
+                <InputBox
+                    tag={'PasswordInput'}
+                    type={'password'}
+                    label={'Password Confirmation:'}
+                    placeholder={'************'}
+                    validation={'password'}
+                    value={confirmPassword}
+                    onChange={setConfirmPassword}
+                ></InputBox>
             <div>
                 {error && <ErrorMessage message={error}/>}
             </div>
             <div>
                 <button onClick={handleSubmit} disabled={loading}>
-                    {loading ? "Logging in..." : "Login"}
+                    {loading ? "Signing Up..." : "Sign Up"}
                 </button>
             </div>
         </div>

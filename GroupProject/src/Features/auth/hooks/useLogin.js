@@ -7,7 +7,9 @@ export default function useLoginForm() {
     const [error,setError]=useState('');
 
     async function handleSubmit(e) {
+        console.log('handle submit hit');
         e.preventDefault();
+
         // fake API call here
         try{
             setLoading(true);
