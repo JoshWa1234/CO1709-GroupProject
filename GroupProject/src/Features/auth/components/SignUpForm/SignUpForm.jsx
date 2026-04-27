@@ -20,7 +20,7 @@ export default function SignUpForm(){
         <div className={styles["login-form"]}>
             <div className={styles["header"]}>
                 <span className={globalStyles['form-title']} >
-                    Login
+                    Sign Up
                 </span>
 
             </div>
