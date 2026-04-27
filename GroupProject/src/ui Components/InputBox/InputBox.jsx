@@ -22,10 +22,27 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
      // controlled change handler from parent
-export default function InputBox({type,placeholder,tag,errorMsg,validation,value,onChange,label}){
+export default function InputBox({type,placeholder,tag,errorMsg,validation,value,onChange,label, readOnly = false}){
     // set to true on initially so error is not aggressive
     const [validInput,setValidInput] = useState(true)
     const [errorMsgState,setErrorMsg] = useState(errorMsg || '')
+
+    // 2. Add this block right after the validationTypes check
+    if (readOnly) {
+        return (
+            <div className={styles["input-container-readonly"]}>
+                <label htmlFor={tag}>{label}</label>
+                <input
+                    type={type}
+                    id={tag}
+                    className={styles["InputBox-ReadOnly"]}
+                    value={value}
+                    readOnly
+                    tabIndex={-1}
+                />
+            </div>
+        );
+    }
 
     if (!validationTypes.includes(validation)) {
         throw new Error("Please enter a valid validation type for the InputBox component");

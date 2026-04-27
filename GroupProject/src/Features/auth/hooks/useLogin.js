@@ -1,39 +1,26 @@
 import { useState } from "react";
 import {loginUser} from "@/services/auth.api.js";
+import { useAuth } from "@/context/AuthContext.jsx";
 
 export default function useLoginForm() {
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [loading,setLoading]=useState(false);
     const [error,setError]=useState('');
-    const [user, setUser] = useState(null);
+    const {login} = useAuth();
 
     async function handleSubmit(e) {
-        console.log('handle submit hit');
         e.preventDefault();
-
-
-        try{
-            setLoading(true);
-            await new Promise(resolve => setTimeout(resolve, 1000))
-                setError("Invalid credentials"); // always fails for now
-        }
-        catch (err){
-            setError(err);
-        }
-        finally {
-            setLoading(false);
-        }
-
-
         setError('');
         setLoading(true);
 
         try {
             const data = await loginUser(email, password);
-            setUser(data.user);
             if (data.errorMessage) {
                 setError(data.errorMessage);
+            }
+            else {
+                login(data.user);
             }
         } catch (err) {
             console.error(err);
@@ -49,7 +36,6 @@ export default function useLoginForm() {
         setPassword,
         loading,
         error,
-        user,
         handleSubmit
     }
 }

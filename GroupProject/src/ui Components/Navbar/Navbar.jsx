@@ -1,10 +1,11 @@
 import styles from "./Navbar.module.css";
 import NavbarItem from "../NavbarItem/NavbarItem.jsx";
 import {useState} from "react";
+import {useAuth} from "@/context/AuthContext.jsx";
 
 function Navbar() {
     const [Responsive, setResponsive] = useState(false);
-
+    const  {user } = useAuth();
     function changeResponsive() {
         setResponsive(prev => !prev);
     }
@@ -19,9 +20,7 @@ function Navbar() {
                     </div>
                 </div>
                 <div className={styles['nav-container-left']}>
-                    <div className={styles['nav-item-container']}>
-                        <NavbarItem path={"/login"} message={'Login'}></NavbarItem>
-                    </div>
+
                     <div className={styles['nav-item-container']}>
                         <NavbarItem path={"/leaderboard"} message={'Leaderboard'}></NavbarItem>
                     </div>
@@ -36,7 +35,20 @@ function Navbar() {
                     </div>
                 </div>
 
-                <div className={styles["nav-container-right"]}></div>
+                <div className={styles["nav-container-right"]}>
+                    <div>
+                        {user === null ? (
+                            <div className={styles['nav-item-container']}>
+                                <NavbarItem path={"/login"} message={'Login'}></NavbarItem>
+                            </div>
+                        ) : (
+                        <div className={styles['nav-item-container']}>
+                            <NavbarItem path={"/profile"} message={'Profile'}></NavbarItem>
+                        </div>
+
+                        )}
+                    </div>
+                </div>
             </div>
     );
 }

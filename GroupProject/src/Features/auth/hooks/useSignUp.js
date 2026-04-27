@@ -22,7 +22,7 @@ export default function useSignUp() {
             const data = await signUpUser(email, password);
             setUser(data.user);
         } catch (err) {
-            setError(err.message); // ✅ err.message, not err itself
+            setError(err.message);
         } finally {
             setLoading(false);
         }

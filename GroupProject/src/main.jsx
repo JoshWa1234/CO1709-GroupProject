@@ -5,13 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 import '@/styles/global.module.css';
-import {AuthProvider} from "@/context/AuthContext.jsx"; // Global styles
+import {AuthProvider} from "@/context/AuthContext.jsx";
+import {AccessibilityProvider} from "@/context/AccessibilityContext.jsx"
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <BrowserRouter>
             <AuthProvider>
-                <App />
+                <AccessibilityProvider>
+                    <App />
+                </AccessibilityProvider>
             </AuthProvider>
         </BrowserRouter>
     </StrictMode>

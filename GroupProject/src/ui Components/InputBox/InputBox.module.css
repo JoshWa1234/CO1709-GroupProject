@@ -1,20 +1,22 @@
 input:focus-visible {
     outline: none;
-
 }
-.InputBox-Standard{
-    border:none;
+
+.InputBox-Standard {
+    border: none;
     border-radius: 5px;
     outline: none;
     padding: 10px;
     width: 100%;
 }
-.input-container{
+
+.input-container {
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
 }
+
 .InputBox-Standard:focus,
 .InputBox-Standard:focus-visible,
 .InputBox-Standard:focus-within {
@@ -22,16 +24,50 @@ input:focus-visible {
     box-shadow: none !important;
     border: #8181fa 2px solid !important;
 }
+
 .error-text {
     color: red;
     font-weight: bold;
     text-align: center;
 }
-.InputBox-Error{
+
+.InputBox-Error {
     border: red 2px solid !important;
     border-radius: 5px;
     outline: none;
     padding: 10px;
     width: 100%;
+}
 
+/* ── Read-only ── */
+.input-container-readonly {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.input-container-readonly label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9898b0;
+    margin-bottom: 2px;
+}
+
+.InputBox-ReadOnly {
+    border: none;
+    border-bottom: 1.5px solid #e0e0f0;
+    border-radius: 0;
+    outline: none;
+    padding: 6px 2px;
+    width: 100%;
+    background: transparent;
+    color: #2d2d4e;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: default;
+    pointer-events: none;
 }

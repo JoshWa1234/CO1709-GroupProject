@@ -1,0 +1,156 @@
+.pageStyle {
+    background: white;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.layoutStyle {
+    display: grid;
+    grid-template-columns: 160px 1fr 220px;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* Sidebar */
+.sidebarStyle {
+    background: #bdf2ff;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.sidebarButtonStyle {
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: 0.5rem 0.4rem;
+    font-size: 0.95rem;
+    color: #1f3b57;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.sidebarButtonStyle:hover {
+    background: #9ed8e8;
+}
+
+/* Centre panel */
+.panelStyle {
+    background: #bdf2ff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.panelTitleStyle {
+    color: #1f3b57;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.avatarStyle {
+    width: 72px;
+    height: 72px;
+    border: 2px solid #1f3b57;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background: white;
+    margin-bottom: 0.5rem;
+}
+
+.editPictureStyle {
+    color: #1f3b57;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.fieldsStyle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.resetPasswordStyle {
+    color: #1f3b57;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 0.25rem;
+}
+
+/* Accessibility panel */
+.accessibilityPanelStyle {
+    background: #bdf2ff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.toggleRowStyle {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.95rem;
+    color: #1f3b57;
+}
+
+.toggleOnStyle {
+    width: 42px;
+    height: 22px;
+    background: #22c55e;
+    border-radius: 999px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.toggleOnStyle::after {
+    content: '';
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+}
+
+.fontRowStyle {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.fontOptionStyle {
+    border: 1px solid #9ed8e8;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    background: white;
+    color: #1f3b57;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.fontOptionActiveStyle {
+    border: 2px solid #1f3b57;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    background: white;
+    color: #1f3b57;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
