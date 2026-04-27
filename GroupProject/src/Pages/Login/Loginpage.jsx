@@ -8,10 +8,18 @@ export default function LoginPage() {
 
     return (
         <div className={styles['login-form-wrapper']}>
-            {isSignUp ? <SignUpForm /> : <LoginForm />}
-            <button onClick={() => setIsSignUp(!isSignUp)}>
-                {isSignUp ? "Already have an account? Login" : "Don't have an account? Sign Up"}
-            </button>
+            <div >
+                {isSignUp ? <SignUpForm /> : <LoginForm />}
+
+                <div style={{textAlign: "center"}}>
+                    <span>Or</span>
+                </div>
+                <div>
+                    <button  className={styles["submitButton"]} onClick={() => setIsSignUp(!isSignUp)}>
+                        {isSignUp ? "Already have an account? Login" : "Don't have an account? Sign Up"}
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }

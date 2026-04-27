@@ -56,7 +56,7 @@ export default function SignUpForm(){
                 {error && <ErrorMessage message={error}/>}
             </div>
             <div>
-                <button onClick={handleSubmit} disabled={loading}>
+                <button className={styles['submitButton']} onClick={handleSubmit} disabled={loading}>
                     {loading ? "Signing Up..." : "Sign Up"}
                 </button>
             </div>

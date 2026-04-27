@@ -1,6 +1,7 @@
 .page-content{
     height: 80vh;
     overflow-y: auto;
+    font-family: "Roboto", sans-serif;
 }
 
 [data-theme="dark"],

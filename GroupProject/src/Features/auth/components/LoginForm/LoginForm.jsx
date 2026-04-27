@@ -53,7 +53,7 @@ export default function LoginForm(){
                 {error && <ErrorMessage message={error}/>}
             </div>
             <div>
-                <button onClick={handleSubmit} disabled={loading}>
+                <button className={styles['submitButton']} onClick={handleSubmit} disabled={loading}>
                     {loading ? "Logging in..." : "Login"}
                 </button>
             </div>
