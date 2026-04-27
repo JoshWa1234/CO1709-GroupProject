@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {loginUser, signUpUser} from "@/api/auth.api.js";
+import {loginUser} from "@/api/auth.api.js";
 
 export default function useLoginForm() {
     const [email,setEmail]=useState('');
@@ -31,7 +31,6 @@ export default function useLoginForm() {
 
         try {
             const data = await loginUser(email, password);
-            console.log('from use Login',data);
             setUser(data.user);
             if (data.errorMessage) {
                 setError(data.errorMessage);

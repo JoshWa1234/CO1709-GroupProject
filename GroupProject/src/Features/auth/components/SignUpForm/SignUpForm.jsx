@@ -42,11 +42,7 @@ export default function SignUpForm(){
                     value={password}
                     onChange={setPassword}
                 ></InputBox>
-            <span style={{'marginBottom': '10px'}} >
-                    <a >
-                         Forgotten Password?
-                    </a>
-                </span>
+
                 <InputBox
                     tag={'PasswordInput'}
                     type={'password'}

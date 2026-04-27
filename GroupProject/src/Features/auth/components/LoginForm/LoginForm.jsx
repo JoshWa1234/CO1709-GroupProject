@@ -1,14 +1,21 @@
-import {useState} from "react";
+import {useEffect} from "react";
 import InputBox from "@/ui Components/InputBox/InputBox.jsx";
 import styles from "./LoginForm.module.css";
 import globalStyles from "@/styles/global.module.css"
 import useLoginForm from "@/Features/auth/hooks/useLogin.js";
 import ErrorMessage from "@/ui Components/ErrorMessage/ErrorMessage.jsx";
+import {useNavigate} from "react-router-dom";
 
 export default function LoginForm(){
 
     const { email, setEmail, password, setPassword, loading, error, user,handleSubmit } = useLoginForm();
-    console.log(user);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) navigate('/');
+    }, [user]);
+
     return(
         <div className={styles["login-form"]}>
             <div className={styles["header"]}>
