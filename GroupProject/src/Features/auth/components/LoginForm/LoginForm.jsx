@@ -5,11 +5,12 @@ import globalStyles from "@/styles/global.module.css"
 import useLoginForm from "@/Features/auth/hooks/useLogin.js";
 import ErrorMessage from "@/ui Components/ErrorMessage/ErrorMessage.jsx";
 import {useNavigate} from "react-router-dom";
+import {useAuth} from "@/context/AuthContext.jsx";
 
 export default function LoginForm(){
 
-    const { email, setEmail, password, setPassword, loading, error, user,handleSubmit } = useLoginForm();
-
+    const { email, setEmail, password, setPassword, loading, error,handleSubmit } = useLoginForm();
+    const { user } = useAuth()
     const navigate = useNavigate();
 
     useEffect(() => {
