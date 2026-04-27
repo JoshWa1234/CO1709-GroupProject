@@ -1,6 +1,5 @@
 .pageStyle {
     background: white;
-    min-height: 100vh;
     padding: 2rem;
 }
 
@@ -12,6 +11,17 @@
     margin: 0 auto;
     align-items: start;
 }
+@media screen and (max-width: 800px) {
+    .layoutStyle {
+        display: grid;
+        grid-template-columns:  1fr;
+        gap: 1.5rem;
+        max-width: 900px;
+        margin: 0 auto;
+        align-items: start;
+    }
+}
+
 
 /* Sidebar */
 .sidebarStyle {

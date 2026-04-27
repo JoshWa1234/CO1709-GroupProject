@@ -16,14 +16,12 @@ import {useAuth} from "@/context/AuthContext.jsx";
 
 function App() {
     const { darkMode, fontSize } = useAccessibility();
-    const {user} = useAuth()
     return (
         <div data-theme={darkMode ? 'dark' : 'light'} data-fontsize={fontSize}>
             <Navbar />
-            <main className="page-content">
+            <main className="page-content" >
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/leaderboard" element={<Leaderboard />} />
                     <Route path="/challenges" element={<ChallengesPage />} />

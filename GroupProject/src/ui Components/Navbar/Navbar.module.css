@@ -58,16 +58,12 @@
         padding: 20px;
     }
 
-        /* Stack left and right containers */
-    .nav-container-right,
-    .nav-container-left{
-        display: flex;
-        flex-direction: column; /* stack items inside */
-        width: 100%; /* full width */
+    .nav-container-responsive {
+        width: 100%;
         padding: 0;
     }
 
-    /* Hide all left items except first one? */
+
     .nav-container.responsive .nav-container-left .nav-item-container {
         display: block; /* now they’re visible in stack */
     }

@@ -7,43 +7,60 @@ function Navbar() {
     const [Responsive, setResponsive] = useState(false);
     const  {user } = useAuth();
     function changeResponsive() {
-        setResponsive(prev => !prev);
+        if (innerWidth < 800){
+            setResponsive(prev => !prev);
+        }
+
     }
-    // noinspection JSUnresolvedLibraryURL
+
+
     return (
-                       <div className={`${styles['nav-container']} ${Responsive ? styles['responsive'] : ''}`}>
-                <div className={`${styles['nav-item-container']} ${!Responsive ? styles['icon'] : ''}`}>
-                    <div className={styles['icon']}>
-                        <button type="button" onClick={changeResponsive}>
-                            ☰
-                        </button>
-                    </div>
+               <div className={`${styles['nav-container']} ${Responsive ? styles['responsive'] : ''}`}>
+                    <div className={`${styles['nav-item-container']} ${!Responsive ? styles['icon'] : ''}`}>
+                        <div className={styles['icon']}>
+                            <button type="button" onClick={changeResponsive}>
+                                ☰
+                            </button>
+                        </div>
                 </div>
-                <div className={styles['nav-container-left']}>
+                <div className={Responsive?styles['nav-container-responsive'] : styles['nav-container-left']}>
 
                     <div className={styles['nav-item-container']}>
-                        <NavbarItem path={"/leaderboard"} message={'Leaderboard'}></NavbarItem>
+                        <NavbarItem path={"/"} message={'Home'} onClick={changeResponsive}></NavbarItem>
                     </div>
                     <div className={styles['nav-item-container']}>
-                        <NavbarItem path={"/challenges"} message={'Challenges'}></NavbarItem>
+                        <NavbarItem path={"/leaderboard"} message={'Leaderboard'} onClick={changeResponsive}></NavbarItem>
                     </div>
+                    {user !== null ?(
                     <div className={styles['nav-item-container']}>
-                        <NavbarItem path={"/challenge-master"} message={'Challenge Master'}></NavbarItem>
+                        <NavbarItem path={"/challenges"} message={'Challenges'} onClick={changeResponsive}></NavbarItem>
                     </div>
-                    <div className={styles['nav-item-container']}>
-                        <NavbarItem path={"/history"} message={'History'}></NavbarItem>
-                    </div>
+                    ) : null
+                    }
+                    {user !== null ?(
+                        <div className={styles['nav-item-container']}>
+                            <NavbarItem path={"/challenge-master"} message={'Challenge Master'} onClick={changeResponsive}></NavbarItem>
+                        </div>
+                    ) : null
+                    }
+                    {user !== null ?(
+                        <div className={styles['nav-item-container']}>
+                            <NavbarItem path={"/history"} message={'History'} onClick={changeResponsive}></NavbarItem>
+                        </div>
+                    ) : null
+                    }
+
                 </div>
 
-                <div className={styles["nav-container-right"]}>
+                <div className={Responsive?styles['nav-container-responsive'] :styles["nav-container-right"]}>
                     <div>
                         {user === null ? (
                             <div className={styles['nav-item-container']}>
-                                <NavbarItem path={"/login"} message={'Login'}></NavbarItem>
+                                <NavbarItem path={"/login"} message={'Login'} onClick={changeResponsive}></NavbarItem>
                             </div>
                         ) : (
                         <div className={styles['nav-item-container']}>
-                            <NavbarItem path={"/profile"} message={'Profile'}></NavbarItem>
+                            <NavbarItem path={"/profile"} message={'Profile'} onClick={changeResponsive}></NavbarItem>
                         </div>
 
                         )}
