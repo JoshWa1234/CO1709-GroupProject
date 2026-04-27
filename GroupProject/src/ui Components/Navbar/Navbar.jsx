@@ -10,15 +10,12 @@ function Navbar() {
     }
     // noinspection JSUnresolvedLibraryURL
     return (
-        <>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
-            <div  className={`${styles['nav-container']} ${Responsive ? styles['responsive'] : ''}`}>
+                       <div className={`${styles['nav-container']} ${Responsive ? styles['responsive'] : ''}`}>
                 <div className={`${styles['nav-item-container']} ${!Responsive ? styles['icon'] : ''}`}>
                     <div className={styles['icon']}>
-                        <a onClick={changeResponsive}>
-                            <i className={'fa fa-bars'}></i>
-                        </a>
+                        <button type="button" onClick={changeResponsive}>
+                            ☰
+                        </button>
                     </div>
                 </div>
                 <div className={styles['nav-container-left']}>
@@ -29,14 +26,19 @@ function Navbar() {
                         <NavbarItem path={"/leaderboard"} message={'Leaderboard'}></NavbarItem>
                     </div>
                     <div className={styles['nav-item-container']}>
-                        <NavbarItem message={'Test-left'}></NavbarItem>
+                        <NavbarItem path={"/challenges"} message={'Challenges'}></NavbarItem>
+                    </div>
+                    <div className={styles['nav-item-container']}>
+                        <NavbarItem path={"/challenge-master"} message={'Challenge Master'}></NavbarItem>
+                    </div>
+                    <div className={styles['nav-item-container']}>
+                        <NavbarItem path={"/history"} message={'History'}></NavbarItem>
                     </div>
                 </div>
-                <div className={styles['nav-container-right']}>
-                </div>
+
+                <div className={styles["nav-container-right"]}></div>
             </div>
-        </>
-    )
+    );
 }
 
-export default Navbar
+export default Navbar;
