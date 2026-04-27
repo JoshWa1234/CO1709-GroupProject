@@ -1,4 +1,5 @@
 import { useAuth } from "@/context/AuthContext.jsx";
+import {useEffect} from "react"
 import styles from "@/Features/Profile/components/PublicProfileForm/PublicProfileForm.module.css";
 import useUserProfile from "@/Features/Profile/hooks/useUserProfile.js";
 import InputBox from "@/ui Components/InputBox/InputBox.jsx";
@@ -7,15 +8,16 @@ import {useAccessibility} from "@/context/AccessibilityContext.jsx"
 import Toggle from "@/ui Components/Toggle/Toggle.jsx";
 
 export default function PublicProfileForm() {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
     const { displayName, setDisplayName, email, setEmail } = useUserProfile();
     const { darkMode, caretBrowsing, updateSetting } = useAccessibility();
 
-    if (!user) {
-        navigate('/Login');
-        return null;
-    }
+    useEffect(() => {
+        if (!user) navigate('/');
+    }, [user]);
+
+    if (!user) return null;
 
     return (
         <div className={styles.pageStyle}>
@@ -26,6 +28,7 @@ export default function PublicProfileForm() {
                     <button className={styles.sidebarButtonStyle}>Settings</button>
                     <button className={styles.sidebarButtonStyle}>My Badges</button>
                     <button className={styles.sidebarButtonStyle}>Points History Log</button>
+                    <button className={styles.sidebarButtonStyle} onClick={logout}>Log Out</button>
                 </div>
 
                 {/* Centre - public profile */}

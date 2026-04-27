@@ -17,6 +17,7 @@ export default function LoginForm(){
         if (user) navigate('/');
     }, [user]);
 
+
     return(
         <div className={styles["login-form"]}>
             <div className={styles["header"]}>
