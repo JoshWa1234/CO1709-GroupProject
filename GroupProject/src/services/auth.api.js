@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "/api";
 
 async function api(endpoint, options = {}) {
     const response = await fetch(`${API_URL}${endpoint}`, {
@@ -31,4 +31,8 @@ export async function signUpUser(email, password) {
         method: "POST",
         body: JSON.stringify({ email, password }),
     });
+}
+
+export async function logoutUser() {
+    return await api("/auth/logout", { method: "POST" });
 }
