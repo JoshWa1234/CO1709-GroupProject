@@ -20,7 +20,9 @@ export default function useLoginForm() {
                 setError(data.errorMessage);
             }
             else {
+                console.log('user',data.user);
                 login(data.user);
+
             }
         } catch (err) {
             console.error(err);

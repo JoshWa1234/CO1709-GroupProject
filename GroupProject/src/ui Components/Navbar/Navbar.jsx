@@ -37,7 +37,7 @@ function Navbar() {
                     </div>
                     ) : null
                     }
-                    {user !== null ?(
+                    {user !== null  && user?.user_type_id === 3?(
                         <div className={styles['nav-item-container']}>
                             <NavbarItem path={"/challenge-master"} message={'Challenge Master'} onClick={changeResponsive}></NavbarItem>
                         </div>
@@ -53,8 +53,13 @@ function Navbar() {
                 </div>
 
                 <div className={Responsive?styles['nav-container-responsive'] :styles["nav-container-right"]}>
-                    <div>
-                        {user === null ? (
+                        {user !== null && user?.user_type_id === 1 ? (
+                            <div className={styles['nav-item-container']}>
+                                <NavbarItem path={"/admin"} message={'Admin'} onClick={changeResponsive}></NavbarItem>
+                            </div>
+                        ) : null
+                        }
+                    {user === null ? (
                             <div className={styles['nav-item-container']}>
                                 <NavbarItem path={"/login"} message={'Login'} onClick={changeResponsive}></NavbarItem>
                             </div>
@@ -64,7 +69,7 @@ function Navbar() {
                         </div>
 
                         )}
-                    </div>
+
                 </div>
             </div>
     );
