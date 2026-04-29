@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
-import { userProfile } from "@/services/user.api.js";
-import {useAuth} from "@/context/AuthContext.jsx";
+import { userProfile, updateProfile } from "@/services/user.api.js";
+import { useAuth } from "@/context/AuthContext.jsx";
 
 export default function useUserProfile() {
-    const [displayName,setDisplayName]=useState('');
-    const [email,setEmail]=useState('');
-    const [badgeList,setBadgeList]=useState([]);
-    const [pointsLogHistory,setPointsLogHistory]=useState([]);
-    const [loading,setLoading]=useState(false);
-    const [error,setError]=useState('');
-    const { user } = useAuth()
+    const [displayName, setDisplayName] = useState('');
+    const [tempDisplayName, setTempDisplayName] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
+    const [email, setEmail] = useState('');
+    const [badgeList, setBadgeList] = useState([]);
+    const [pointsLogHistory, setPointsLogHistory] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const { user } = useAuth();
 
     useEffect(() => {
-        if (!user) return; // ← guard against null user
+        if (!user) return;
 
         async function fetchProfile() {
             setError('');
@@ -20,6 +22,7 @@ export default function useUserProfile() {
             try {
                 const data = await userProfile(user.id);
                 setDisplayName(data.displayName);
+                setTempDisplayName(data.displayName);
                 setEmail(data.email);
                 setBadgeList(data.badgeList);
                 setPointsLogHistory(data.pointsLogHistory);
@@ -32,12 +35,37 @@ export default function useUserProfile() {
         }
 
         fetchProfile();
-    }, [user]); // re-runs when user changes
+    }, [user]);
 
+    const handleEdit = () => {
+        setTempDisplayName(displayName);
+        setIsEditing(true);
+    };
+
+    const handleSave = async () => {
+        try {
+            await updateProfile(user.id, tempDisplayName);
+            setDisplayName(tempDisplayName);
+            setIsEditing(false);
+        } catch (err) {
+            setError('Failed to update profile.');
+            console.error(err);
+        }
+    };
+
+    const handleCancel = () => {
+        setTempDisplayName(displayName);
+        setIsEditing(false);
+    };
 
     return {
         displayName,
-        setDisplayName,
+        tempDisplayName,
+        setTempDisplayName,
+        isEditing,
+        handleEdit,
+        handleSave,
+        handleCancel,
         email,
         setEmail,
         loading,

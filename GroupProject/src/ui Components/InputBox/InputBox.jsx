@@ -107,6 +107,7 @@ export default function InputBox({type,placeholder,tag,errorMsg,validation,value
 
     if (type === "password") {
         return (
+            <div className={styles["tooltip-wrapper"]}>
             <HtmlTooltip
                 title={
                     <Fragment>
@@ -125,7 +126,7 @@ export default function InputBox({type,placeholder,tag,errorMsg,validation,value
                 <div>
                     <label htmlFor={tag}>{label}</label>
                 </div>
-                <div>
+                <div style={{ width: '100%' }}>
                     {inputElement}
                 </div>
             </div>
@@ -136,6 +137,7 @@ export default function InputBox({type,placeholder,tag,errorMsg,validation,value
                     )}
                 </div>
             </HtmlTooltip>
+            </div>
         );
     }
 

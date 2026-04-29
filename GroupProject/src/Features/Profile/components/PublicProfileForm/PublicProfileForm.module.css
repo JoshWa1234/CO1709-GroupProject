@@ -57,7 +57,38 @@
     flex-direction: column;
     align-items: center;
 }
+.panelStyleFooter{
+    align-self: flex-end;
+}
 
+.saveButton{
+    color: white;
+    background-color: #FF7C20;;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: 600;
+    text-align: center;
+
+}
+
+.saveButton:hover{
+    color: white;
+    background-color: #FFB7A0;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: 600;
+    text-align: center;
+
+}
+
+.btnGroupStyle{
+    display: flex;
+    flex-direction: row;
+}
 .panelTitleStyle {
     color: #1f3b57;
     font-size: 1.2rem;
@@ -163,4 +194,27 @@
     color: #1f3b57;
     font-size: 0.9rem;
     font-weight: bold;
+}
+
+.backButtonStyle {
+    color: black;
+    background-color: #B2B7B8;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+
+.backButtonStyle:hover {
+    color: black;
+    background-color: #DBDEDF;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: 600;
+    text-align: center;
 }

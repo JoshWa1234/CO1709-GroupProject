@@ -15,6 +15,7 @@ input:focus-visible {
     flex-direction: column;
     align-items: start;
     justify-content: center;
+    width: 100%;
 }
 
 .InputBox-Standard:focus,
@@ -45,6 +46,11 @@ input:focus-visible {
     flex-direction: column;
     align-items: start;
     justify-content: center;
+    width: 100%;
+}
+
+.tooltip-wrapper {
+    width: 100%;
 }
 
 .input-container-readonly label {

@@ -36,3 +36,10 @@ export async function signUpUser(email, password) {
 export async function logoutUser() {
     return await api("/auth/logout", { method: "POST" });
 }
+
+export async function resetPassword(id, currentPassword, newPassword) {
+    return await api(`/auth/resetPassword/${id}`, {
+        method: "PUT",
+        body: JSON.stringify({ currentPassword, newPassword })
+    });
+}
