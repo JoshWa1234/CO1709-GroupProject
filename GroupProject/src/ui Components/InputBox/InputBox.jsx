@@ -27,7 +27,6 @@ export default function InputBox({type,placeholder,tag,errorMsg,validation,value
     const [validInput,setValidInput] = useState(true)
     const [errorMsgState,setErrorMsg] = useState(errorMsg || '')
 
-    // 2. Add this block right after the validationTypes check
     if (readOnly) {
         return (
             <div className={styles["input-container-readonly"]}>
