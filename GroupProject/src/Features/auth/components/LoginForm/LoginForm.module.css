@@ -1,0 +1,47 @@
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 30px;
+    border:none;
+    border-radius: 10px;
+    background-color: #bdf2ff;
+}
+
+.login-form div{
+    padding-top:3px ;
+    width:  256px;
+    color: #394e5c;
+}
+
+.header{
+    padding-bottom: 5px;
+    font: bold 20px/1.5 "Roboto", sans-serif;
+    box-shadow: 0px 1px #394e5c;
+    text-align: center;
+    color: #394e5c;
+}
+.submitButton{
+    color: white;
+    background:  linear-gradient(#FF7C20, #fa761a);
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: 600;
+    text-align: center;
+
+}
+
+.submitButton:hover{
+    color: white;
+    background-color: #FFB7A0;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: 600;
+    text-align: center;
+
+}

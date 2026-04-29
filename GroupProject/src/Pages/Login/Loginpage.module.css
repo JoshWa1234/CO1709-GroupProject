@@ -1,0 +1,30 @@
+.login-form-wrapper{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.submitButton{
+    color: Black;
+    background-color: #B2B7B8;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: 600;
+    text-align: center;
+
+}
+.submitButton:hover{
+
+        color: Black;
+        background-color: #DBDEDF;
+        border: none;
+        width: 100%;
+        border-radius: 5px;
+        padding: 8px;
+        font-weight: 600;
+        text-align: center;
+}

@@ -6,7 +6,7 @@ export default function SlideShow ({imageList}) {
     const [slide, setSlide] = useState(0);
     const imageListLength = imageList.length;
 
-    setTimeout(() => nextSlide(), 3000);
+    setTimeout(() => nextSlide(), 5000);
 
     function changeSlide(slideNo) {
         setSlide(slideNo);

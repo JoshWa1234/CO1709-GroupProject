@@ -1,33 +1,41 @@
-import {useState} from "react";
-import {loginUserIn} from '@/api/auth.api'
-import {createCookie} from "react-router-dom";
+import { useState } from "react";
+import {loginUser} from "@/services/auth.api.js";
+import { useAuth } from "@/context/AuthContext.jsx";
 
-export default function useLogin(){
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+export default function useLoginForm() {
+    const [email,setEmail]=useState('');
+    const [password,setPassword]=useState('');
+    const [loading,setLoading]=useState(false);
+    const [error,setError]=useState('');
+    const {login} = useAuth();
 
-    const loginUser = async (email,password) => {
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setError('');
         setLoading(true);
-        setError(null);
 
         try {
-            const data = await loginUserIn(email, password);
-
-            // store auth tokenauth
-            createCookie("tokenAuth", token);
-
-            // redirect after login
-            navigate("/");
+            const data = await loginUser(email, password);
+            if (data.errorMessage) {
+                setError(data.errorMessage);
+            }
+            else {
+                login(data.user);
+            }
         } catch (err) {
-            setError(err.response?.data?.message || "Login failed");
+            console.error(err);
         } finally {
             setLoading(false);
         }
     }
 
     return {
-        loginUser,
+        email,
+        setEmail,
+        password,
+        setPassword,
         loading,
-        error
-};
-};
+        error,
+        handleSubmit
+    }
+}

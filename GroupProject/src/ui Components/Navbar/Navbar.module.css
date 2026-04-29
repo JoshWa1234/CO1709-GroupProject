@@ -11,11 +11,16 @@
     display: flex;
     padding-right: 20px;
     float: left;
+    width: 100%;
+    justify-content: flex-start;
+    text-wrap: nowrap;
 }
 .nav-container-right{
     display: flex;
     padding: 20px;
     float: right;
+    width: 100%;
+    justify-content: flex-end;
 }
 
 .nav-item-container{
@@ -30,13 +35,13 @@
 
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     .nav-container-left .nav-item-container:not(.icon) {display: none;}
     .nav-container-right .nav-item-container {display:none;}
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     /* Show the hamburger icon */
     .icon {
         display: block;
@@ -53,16 +58,12 @@
         padding: 20px;
     }
 
-        /* Stack left and right containers */
-    .nav-container-right,
-    .nav-container-left{
-        display: flex;
-        flex-direction: column; /* stack items inside */
-        width: 100%; /* full width */
+    .nav-container-responsive {
+        width: 100%;
         padding: 0;
     }
 
-    /* Hide all left items except first one? */
+
     .nav-container.responsive .nav-container-left .nav-item-container {
         display: block; /* now they’re visible in stack */
     }

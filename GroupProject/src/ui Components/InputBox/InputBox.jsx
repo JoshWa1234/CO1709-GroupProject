@@ -4,6 +4,7 @@ import {emailValidation,passwordValidation} from "@/utils/validation.utils.js";
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import ErrorMessage from "@/ui Components/ErrorMessage/ErrorMessage.jsx";
 
 const validationTypes = ['email', 'password','none'];
 
@@ -21,10 +22,27 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
      // controlled change handler from parent
-export default function InputBox({type,placeholder,tag,errorMsg,validation,value,onChange}){
+export default function InputBox({type,placeholder,tag,errorMsg,validation,value,onChange,label, readOnly = false}){
     // set to true on initially so error is not aggressive
     const [validInput,setValidInput] = useState(true)
     const [errorMsgState,setErrorMsg] = useState(errorMsg || '')
+
+    // 2. Add this block right after the validationTypes check
+    if (readOnly) {
+        return (
+            <div className={styles["input-container-readonly"]}>
+                <label htmlFor={tag}>{label}</label>
+                <input
+                    type={type}
+                    id={tag}
+                    className={styles["InputBox-ReadOnly"]}
+                    value={value}
+                    readOnly
+                    tabIndex={-1}
+                />
+            </div>
+        );
+    }
 
     if (!validationTypes.includes(validation)) {
         throw new Error("Please enter a valid validation type for the InputBox component");
@@ -64,22 +82,32 @@ export default function InputBox({type,placeholder,tag,errorMsg,validation,value
             value={value}
             onChange={(e) => handleChange(e.target.value)}
             onBlur={() => validate()}
+
         />
     );
 
     const inputWithError = (
         <>
-            {inputElement}
-            {!validInput && (
+            <div className={styles["input-container"]}>
                 <div>
-                    <span className={styles["error-text"]}>{errorMsgState}</span>
+                    <label htmlFor={tag}>{label}</label>
                 </div>
+                <div>
+                    {inputElement}
+                </div>
+            </div>
+            <div>
+
+            {!validInput && (
+                <ErrorMessage message={errorMsgState} />
             )}
+            </div>
         </>
     );
 
     if (type === "password") {
         return (
+            <div className={styles["tooltip-wrapper"]}>
             <HtmlTooltip
                 title={
                     <Fragment>
@@ -94,15 +122,24 @@ export default function InputBox({type,placeholder,tag,errorMsg,validation,value
                     </Fragment>
                 }
             >
-                {inputElement}
-                {!validInput && (
-                    <div>
-                        <span className={styles["error-text"]}>{errorMsgState}</span>
-                    </div>
-                )}
+            <div className={styles["input-container"]}>
+                <div>
+                    <label htmlFor={tag}>{label}</label>
+                </div>
+                <div style={{ width: '100%' }}>
+                    {inputElement}
+                </div>
+            </div>
+                <div>
+
+                    {!validInput && (
+                        <ErrorMessage message={errorMsgState} />
+                    )}
+                </div>
             </HtmlTooltip>
+            </div>
         );
     }
 
-    return <div>{inputWithError}</div>;
+    return inputWithError;
 }
