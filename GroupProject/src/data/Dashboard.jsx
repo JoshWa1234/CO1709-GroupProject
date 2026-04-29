@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   ResponsiveContainer,
   LineChart,
@@ -18,7 +17,6 @@ import {
 export default function DashboardAnalytics() {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-
   const [weeklyData, setWeeklyData] = useState([]);
 
   const [metrics, setMetrics] = useState({
@@ -29,7 +27,6 @@ export default function DashboardAnalytics() {
     completionRate: 0,
   });
 
-  // LIVE API FETCH FROM DATABASE
   useEffect(() => {
     async function fetchDashboardData() {
       try {
@@ -40,7 +37,6 @@ export default function DashboardAnalytics() {
 
         setUsers(data);
 
-        // Current logged in user example = Sam
         const loggedInUser =
           data.find((user) => user.username === "Sam") || data[0];
 
@@ -48,7 +44,6 @@ export default function DashboardAnalytics() {
           setCurrentUser(loggedInUser);
         }
 
-        // WEEKLY REAL DATA FROM DATABASE
         const generatedWeeklyData = data.map((user, index) => ({
           day: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][index % 7],
           steps: user.steps || 0,
@@ -57,7 +52,16 @@ export default function DashboardAnalytics() {
 
         setWeeklyData(generatedWeeklyData);
 
-        // KEY METRICS
+        // safe fallback values (prevents crashes)
+        const totalPoints = data.reduce((sum, u) => sum + (u.points || 0), 0);
+        const completedChallenges = data.filter(
+          (u) => u.completed
+        ).length || 0;
+        const totalChallenges = data.length;
+        const completionRate = totalChallenges
+          ? Math.round((completedChallenges / totalChallenges) * 100)
+          : 0;
+
         setMetrics({
           totalPoints,
           activeUsers: data.length,
@@ -71,24 +75,17 @@ export default function DashboardAnalytics() {
     }
 
     fetchDashboardData();
-
-    // Auto refresh every 5 seconds for live updates
     const interval = setInterval(fetchDashboardData, 5000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // LEADERBOARD
   const leaderboard = [...users].sort(
     (a, b) => (b.points || 0) - (a.points || 0)
   );
 
-  // PIE CHART DATA
   const pieData = [
-    {
-      name: "Completed",
-      value: metrics.completedChallenges,
-    },
+    { name: "Completed", value: metrics.completedChallenges },
     {
       name: "Remaining",
       value: Math.max(
@@ -102,13 +99,11 @@ export default function DashboardAnalytics() {
 
   return (
     <div className="min-h-screen bg-blue-100 p-6">
-      {/* TOP HEADER */}
+
+      {/* HEADER */}
       <div className="bg-blue-300 rounded-2xl p-5 shadow flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">Dashboard Analytics</h1>
-          <p className="text-sm">
-            Live analytics from database + API integration
-          </p>
         </div>
 
         {currentUser && (
@@ -121,6 +116,7 @@ export default function DashboardAnalytics() {
       </div>
 
       <div className="grid grid-cols-4 gap-4 mt-6">
+
         {/* SIDEBAR */}
         <div className="bg-white rounded-2xl p-4 shadow">
           <ul className="space-y-4 font-medium">
@@ -132,136 +128,118 @@ export default function DashboardAnalytics() {
           </ul>
         </div>
 
-        {/* MAIN CONTENT */}
+        {/* MAIN */}
         <div className="col-span-3 space-y-5">
-          {/* KEY METRICS */}
+
+          {/* METRICS */}
           <div className="grid grid-cols-4 gap-4">
-            <Card>
-              <CardContent className="p-4">
-                <p>Total Points Earned</p>
-                <h2 className="text-2xl font-bold">
-                  {metrics.totalPoints}
-                </h2>
-              </CardContent>
-            </Card>
 
-            <Card>
-              <CardContent className="p-4">
-                <p>Completed Challenges</p>
-                <h2 className="text-2xl font-bold">
-                  {metrics.completedChallenges}
-                </h2>
-              </CardContent>
-            </Card>
+            <div className="bg-white rounded-xl shadow p-4">
+              <p>Total Points Earned</p>
+              <h2 className="text-2xl font-bold">{metrics.totalPoints}</h2>
+            </div>
 
-            <Card>
-              <CardContent className="p-4">
-                <p>Active Users</p>
-                <h2 className="text-2xl font-bold">
-                  {metrics.activeUsers}
-                </h2>
-              </CardContent>
-            </Card>
+            <div className="bg-white rounded-xl shadow p-4">
+              <p>Completed Challenges</p>
+              <h2 className="text-2xl font-bold">
+                {metrics.completedChallenges}
+              </h2>
+            </div>
 
-            <Card>
-              <CardContent className="p-4">
-                <p>Completion Rate</p>
-                <h2 className="text-2xl font-bold">
-                  {metrics.completionRate}%
-                </h2>
-              </CardContent>
-            </Card>
+            <div className="bg-white rounded-xl shadow p-4">
+              <p>Active Users</p>
+              <h2 className="text-2xl font-bold">{metrics.activeUsers}</h2>
+            </div>
+
+            <div className="bg-white rounded-xl shadow p-4">
+              <p>Completion Rate</p>
+              <h2 className="text-2xl font-bold">
+                {metrics.completionRate}%
+              </h2>
+            </div>
+
           </div>
 
           {/* CHARTS */}
           <div className="grid grid-cols-2 gap-4">
-            <Card>
-              <CardContent className="p-4">
-                <h3 className="font-semibold mb-3">Weekly Step Analytics</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <LineChart data={weeklyData}>
-                    <XAxis dataKey="day" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="steps"
-                      stroke="#2563eb"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
 
-            <Card>
-              <CardContent className="p-4">
-                <h3 className="font-semibold mb-3">Mood Analytics</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={weeklyData}>
-                    <XAxis dataKey="day" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="mood" fill="#16a34a" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+            <div className="bg-white rounded-xl shadow p-4">
+              <h3 className="font-semibold mb-3">Weekly Step Analytics</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <LineChart data={weeklyData}>
+                  <XAxis dataKey="day" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="steps" stroke="#2563eb" />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-white rounded-xl shadow p-4">
+              <h3 className="font-semibold mb-3">Mood Analytics</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={weeklyData}>
+                  <XAxis dataKey="day" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="mood" fill="#16a34a" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
           </div>
 
           {/* PIE + LEADERBOARD */}
           <div className="grid grid-cols-2 gap-4">
-            <Card>
-              <CardContent className="p-4">
-                <h3 className="font-semibold mb-3">
-                  Challenge Completion Overview
-                </h3>
-                <ResponsiveContainer width="100%" height={280}>
-                  <PieChart>
-                    <Pie
-                      data={pieData}
-                      dataKey="value"
-                      nameKey="name"
-                      outerRadius={90}
-                      label
-                    >
-                      {pieData.map((entry, index) => (
-                        <Cell
-                          key={index}
-                          fill={pieColors[index % pieColors.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
 
-            <Card>
-              <CardContent className="p-4">
-                <h3 className="font-semibold mb-3">Leaderboard</h3>
+            <div className="bg-white rounded-xl shadow p-4">
+              <h3 className="font-semibold mb-3">
+                Challenge Completion Overview
+              </h3>
 
-                <div className="space-y-3">
-                  {leaderboard.map((user, index) => (
-                    <div
-                      key={user.id}
-                      className="flex justify-between border-b pb-2"
-                    >
-                      <div>
-                        #{index + 1} {user.username}
-                      </div>
+              <ResponsiveContainer width="100%" height={280}>
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    dataKey="value"
+                    nameKey="name"
+                    outerRadius={90}
+                    label
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell
+                        key={index}
+                        fill={pieColors[index % pieColors.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
 
-                      <div>
-                        ⭐ {user.points || 0}
-                      </div>
+            <div className="bg-white rounded-xl shadow p-4">
+              <h3 className="font-semibold mb-3">Leaderboard</h3>
+
+              <div className="space-y-3">
+                {leaderboard.map((user, index) => (
+                  <div
+                    key={user.id}
+                    className="flex justify-between border-b pb-2"
+                  >
+                    <div>
+                      #{index + 1} {user.username}
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <div>⭐ {user.points || 0}</div>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>
