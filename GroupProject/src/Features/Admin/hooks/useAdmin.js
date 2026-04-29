@@ -76,7 +76,8 @@ export default function useAdmin() {
         sessionSearch, setSessionSearch,
         filteredUsers, filteredSessions,
         editingUser, editForm, setEditForm,
-        handleEditOpen, handleEditClose, handleEditSave
+        handleEditOpen, handleEditClose, handleEditSave,
+        userTypes
     };
 
 

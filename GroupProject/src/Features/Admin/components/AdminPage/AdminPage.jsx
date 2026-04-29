@@ -58,7 +58,7 @@ export default function AdminPage() {
                                 <td className={styles.idCell}>{u.id}</td>
                                 <td>{u.username}</td>
                                 <td>{u.email}</td>
-                                <td>{userTypes.find(t => t.id === u.user_type_id)?.name ?? 'Unknown'}</td>
+                                <td>{userTypes.find(t => t.id === parseInt(u.user_type_id))?.name ?? 'Unknown'}</td>
                                 <td>{u.created_at ? new Date(u.created_at).toLocaleDateString() : '—'}</td>
                                 <td>
                                     <div className={styles.actionButtons}>
