@@ -2,6 +2,7 @@ import styles from "./Navbar.module.css";
 import NavbarItem from "../NavbarItem/NavbarItem.jsx";
 import {useState} from "react";
 import {useAuth} from "@/context/AuthContext.jsx";
+import DashboardAnalytics from "@/data/Dashboard.jsx";
 
 function Navbar() {
     const [Responsive, setResponsive] = useState(false);
@@ -46,6 +47,12 @@ function Navbar() {
                     {user !== null ?(
                         <div className={styles['nav-item-container']}>
                             <NavbarItem path={"/history"} message={'History'} onClick={changeResponsive}></NavbarItem>
+                        </div>
+                    ) : null
+                    }
+                    {user !== null ?(
+                        <div className={styles['nav-item-container']}>
+                            <NavbarItem path={"/dashboard"} message={'Dashboard'} onClick={changeResponsive}></NavbarItem>
                         </div>
                     ) : null
                     }
