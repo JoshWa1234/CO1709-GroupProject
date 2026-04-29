@@ -8,11 +8,12 @@ import ChallengesPage from './Pages/Challenges/ChallengesPage.jsx';
 import ChallengeSubmissionPage from './Pages/ChallengeSubmission/ChallengeSubmissionPage.jsx';
 import ChallengeMasterPage from './Pages/ChallengeMaster/ChallengeMasterPage.jsx';
 import HistoryPage from './Pages/History/HistoryPage.jsx';
+import AdminPage from "@/Features/Admin/components/AdminPage/AdminPage.jsx"
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import ProfilePage from "@/Pages/ProfilePage/ProfilePage.jsx";
 import {useAccessibility} from "@/context/AccessibilityContext.jsx"
-import {useAuth} from "@/context/AuthContext.jsx";
+import DashboardAnalytics from "@/data/Dashboard.jsx";
 
 function App() {
     const { darkMode, fontSize } = useAccessibility();
@@ -29,6 +30,8 @@ function App() {
                     <Route path="/challenge-master" element={<ChallengeMasterPage />} />
                     <Route path="/history" element={<HistoryPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/admin" element={<AdminPage />} />
+                    <Route path="/dashboard" element={<DashboardAnalytics />} />
                 </Routes>
             </main>
             <Footer />
