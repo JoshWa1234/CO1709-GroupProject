@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { signUpUser } from "@/services/auth.api.js";
+import { useAuth } from "@/context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function useSignUp() {
     const [email, setEmail] = useState('');
@@ -7,7 +9,8 @@ export default function useSignUp() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [user, setUser] = useState(null);
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     async function handleSubmit() {
         if (password !== confirmPassword) {
@@ -20,7 +23,12 @@ export default function useSignUp() {
 
         try {
             const data = await signUpUser(email, password);
-            setUser(data.user);
+            if (data.errorMessage) {
+                setError(data.errorMessage);
+            } else {
+                login(data.user);
+                navigate('/');
+            }
         } catch (err) {
             setError(err.message);
         } finally {
@@ -29,15 +37,10 @@ export default function useSignUp() {
     }
 
     return {
-        email,
-        setEmail,
-        password,
-        setPassword,
-        confirmPassword,
-        setConfirmPassword,
-        loading,
-        error,
-        user,
+        email, setEmail,
+        password, setPassword,
+        confirmPassword, setConfirmPassword,
+        loading, error,
         handleSubmit
     }
 }
